@@ -41,7 +41,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={figtree.variable}>
+    <html lang="en" className={figtree.variable} data-scroll-behavior="smooth">
       <body>
         <noscript>
           <style>{`.reveal{opacity:1!important;transform:none!important}.interactive-demo,.menu-toggle{display:none!important}.navigation{display:flex!important}`}</style>

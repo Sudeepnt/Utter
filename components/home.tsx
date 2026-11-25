@@ -62,7 +62,13 @@ function Brand({ inverse = false }: { inverse?: boolean }) {
       href="/"
       aria-label="Utter home"
     >
-      <Image src="/assets/utter-logo.png" alt="" width={42} height={42} />
+      <Image
+        src="/assets/utter-logo.png"
+        alt=""
+        width={42}
+        height={42}
+        loading="eager"
+      />
       <span>
         utter<span className="brand-dot">.</span>
       </span>
@@ -252,7 +258,8 @@ export default function Home() {
                 width={570}
                 height={570}
                 alt="Utter's exuberant mascot, ready to get your thoughts out loud"
-                priority
+                loading="eager"
+                fetchPriority="high"
                 sizes="(max-width: 760px) 90vw, 45vw"
               />
               <span className="speech-bubble">
