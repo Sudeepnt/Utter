@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { Icon } from "./icons";
+import { DownloadLink } from "./download-link";
 
 const scenarios = [
   {
@@ -37,7 +38,7 @@ const platforms = {
   mac: "/api/download?platform=macos-arm64",
   windows: "/api/download?platform=windows-x64",
 };
-function DownloadLink({
+function PlatformDownload({
   os,
   light = false,
 }: {
@@ -45,14 +46,13 @@ function DownloadLink({
   light?: boolean;
 }) {
   return (
-    <a
+    <DownloadLink
       className={`button ${light ? "button-white" : "button-dark"}`}
       href={platforms[os]}
-    >
-      <Icon name={os === "mac" ? "apple" : "windows"} />
-      Download for {os === "mac" ? "Mac" : "Windows"}
-      <Icon name="download" size={18} />
-    </a>
+      icon={<Icon name={os === "mac" ? "apple" : "windows"} />}
+      label={`Download for ${os === "mac" ? "Mac" : "Windows"}`}
+      endIcon={<Icon name="download" size={18} />}
+    />
   );
 }
 function Brand({ inverse = false }: { inverse?: boolean }) {
@@ -216,11 +216,13 @@ export default function Home() {
               Privately, on your computer.
             </p>
             <div className="hero-actions">
-              <DownloadLink os="mac" />
-              <a className="text-button" href={platforms.windows}>
-                <Icon name="windows" size={17} />
-                Get it for Windows
-              </a>
+              <PlatformDownload os="mac" />
+              <DownloadLink
+                className="text-button"
+                href={platforms.windows}
+                icon={<Icon name="windows" size={17} />}
+                label="Get it for Windows"
+              />
             </div>
             <p className="hero-fine">
               Mac & Windows <span>·</span> No account needed for local dictation
@@ -691,8 +693,8 @@ export default function Home() {
               </h2>
               <p>Give your keyboard a break. Get a little Utter.</p>
               <div className="download-buttons">
-                <DownloadLink os="mac" light />
-                <DownloadLink os="windows" light />
+                <PlatformDownload os="mac" light />
+                <PlatformDownload os="windows" light />
               </div>
               <div className="system-details">
                 <span>

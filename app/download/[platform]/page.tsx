@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { Icon } from "@/components/icons";
+import { DownloadLink } from "@/components/download-link";
 import { getInstaller, platforms, type Platform } from "@/lib/releases";
 export const dynamic = "force-dynamic";
 const slugs: Record<string, Platform> = {
@@ -81,15 +82,13 @@ export default async function Download({
                 </div>
               )}
               <div className="download-actions">
-                <a
+                <DownloadLink
                   className="button button-dark"
                   href={`/api/download?platform=${key}${installer.preview ? "&channel=preview" : ""}`}
-                >
-                  <Icon name="download" />
-                  {installer.preview
-                    ? "Download test preview"
-                    : `Download ${platform.extension}`}
-                </a>
+                  icon={<Icon name="download" />}
+                  label={installer.preview ? "Download test preview" : `Download ${platform.extension}`}
+                  showStatus
+                />
                 <span>
                   {installer.version} · {(installer.size / 1048576).toFixed(1)}{" "}
                   MB
