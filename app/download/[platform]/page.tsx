@@ -122,7 +122,7 @@ export default async function Download({
               </ol>
               <p className="release-meta">
                 Internet is needed for the initial speech model download. You
-                can find plan previews inside the app.
+                can check the current pricing status inside the app.
               </p>
             </>
           ) : (
