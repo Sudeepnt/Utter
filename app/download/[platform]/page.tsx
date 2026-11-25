@@ -31,7 +31,8 @@ export default async function Download({
   const key = slugs[(await params).platform];
   if (!key) notFound();
   const platform = platforms[key];
-  const installer = await getInstaller(key);
+  const installer =
+    (await getInstaller(key)) ?? (await getInstaller(key, true));
   return (
     <>
       <header className="site-header">
@@ -66,15 +67,39 @@ export default async function Download({
                 Your next idea doesn't need to wait for your typing. Download
                 Utter, set up your speech model, and give it a voice.
               </p>
+              {installer.preview && (
+                <div className="preview-notice" role="note">
+                  <strong>Unsigned test preview</strong>
+                  <p>
+                    This early build is not code-signed or notarized for public
+                    distribution.{" "}
+                    {key === "macos-arm64"
+                      ? "macOS may block opening it."
+                      : "Windows may show an unverified publisher warning."}{" "}
+                    Choose this download only if you want to test the preview.
+                  </p>
+                </div>
+              )}
               <div className="download-actions">
-                <a className="button button-dark" href={installer.url}>
+                <a
+                  className="button button-dark"
+                  href={`/api/download?platform=${key}${installer.preview ? "&channel=preview" : ""}`}
+                >
                   <Icon name="download" />
-                  Download {platform.extension}
+                  {installer.preview
+                    ? "Download test preview"
+                    : `Download ${platform.extension}`}
                 </a>
                 <span>
                   {installer.version} · {(installer.size / 1048576).toFixed(1)}{" "}
                   MB
                 </span>
+              </div>
+              <div className="download-verification">
+                <a href={installer.checksumUrl}>SHA-256 checksums</a>
+                <a href={installer.releaseUrl} target="_blank" rel="noreferrer">
+                  Release notes
+                </a>
               </div>
               <h2>Make yourself at home.</h2>
               <ol>

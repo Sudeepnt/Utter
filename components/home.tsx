@@ -660,7 +660,7 @@ export default function Home() {
               ],
               [
                 "Where do I find plans and pricing?",
-                "Plans live inside Utter's Pricing page. Purchase previews are available there; checkout and app licensing are not connected yet.",
+                "Utter is free right now. The Pricing page inside the app confirms that no purchase is required. Paid plans and checkout are not active.",
               ],
               [
                 "Are the desktop downloads available yet?",

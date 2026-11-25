@@ -45,8 +45,32 @@ Mac support: Apple silicon, macOS 15+. Windows support: x64 Windows 10/11 with A
 - https://github.com/Sudeepnt/Hex
 - https://github.com/Sudeepnt/Utter-Windows
 
-Pricing and purchase previews belong inside the desktop apps. The website has no pricing table, checkout, account collection, analytics, or fabricated user endorsements. Creator cards are illustrative workflow scenarios.
+The Pricing page inside the desktop apps says **Free right now**; paid plans are not active. The website has no pricing table, checkout, account collection, analytics, or fabricated user endorsements. Creator cards are illustrative workflow scenarios.
 
 ## Brand and content
 
 The supplied Utter mascot is in `public/assets/utter-logo.png`. Figtree is bundled locally; its license is included alongside the font. The design takes inspiration from clear, product-led dictation websites, with original copy, composition, and interactions. It makes no unmeasured speed or accuracy claims about competitors.
+
+## Test preview downloads
+
+If no stable installer exists, the platform download page can offer a clearly
+labelled test preview from a published `vX.Y.Z-preview.*` prerelease. It requires
+an installer and checksum asset. The user explicitly chooses **Download test
+preview**; ordinary download requests never silently choose an unsigned file.
+The preview API requires `channel=preview`. Stable releases still reject local
+unsigned filenames.
+
+To publish an update after both builds and installer checks pass:
+
+```sh
+node scripts/publish-preview.mjs --version 3.4.1 --mac /path/utter-3.4.1-macos-arm64-local-unsigned.dmg --windows /path/UtterSetup-x64.exe --mac-ref MAC_COMMIT --windows-ref WINDOWS_COMMIT
+```
+
+The script hashes the files, creates a draft prerelease, uploads installers and
+`SHA256SUMS.txt`, checks uploaded asset metadata, then publishes the prerelease.
+Optional `--arm64` adds a Windows ARM64 installer. Every subsequent app update
+must increment the desktop version (e.g. 3.4.1 to 3.4.2) before building. Preview
+apps check this release feed after ten seconds and every fifteen minutes, offer
+only newer compatible versions, and repeat their reminder ten minutes after
+dismissal until the updated version is running. Installing remains a user action
+for unsigned previews. Do not treat a source commit as a published installer.

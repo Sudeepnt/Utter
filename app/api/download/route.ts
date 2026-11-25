@@ -8,7 +8,8 @@ export async function GET(request: Request) {
       { error: "Choose a Mac or Windows download." },
       { status: 400 },
     );
-  const installer = await getInstaller(platform);
+  const preview = url.searchParams.get("channel") === "preview";
+  const installer = await getInstaller(platform, preview);
   if (!installer)
     return new Response(null, {
       status: 303,

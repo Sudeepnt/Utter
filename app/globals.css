@@ -2007,3 +2007,31 @@ h2 {
 .motion-paused .mascot-stage {
   transform: none;
 }
+
+.preview-notice {
+  margin: 25px 0;
+  padding: 18px 20px;
+  background: #fff1e5;
+  border: 1px solid #e8cbb4;
+  border-radius: 12px;
+  color: #6b3b21;
+}
+.preview-notice strong {
+  font-size: 15px;
+}
+.preview-notice p {
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 9px 0 0;
+}
+.download-verification {
+  display: flex;
+  gap: 22px;
+  flex-wrap: wrap;
+  font-size: 13px;
+  color: #67506d;
+}
+.download-verification a {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
